@@ -13,6 +13,7 @@ const Music = lazy(() => import("@/components/pages/Music/Music"));
 const About = lazy(() => import("@/components/pages/About/About"));
 const Contact = lazy(() => import("@/components/pages/Contact/Contact"));
 const Login = lazy(() => import("@/components/pages/Login/Login"));
+const Article = lazy(() => import("@/components/pages/Article/Article"));
 
 import NavBar from "@/components/ui/NavBar/NavBar";
 
@@ -67,6 +68,14 @@ export default function App() {
           element={
             <Suspense fallback={<LoadingBar />}>
               <Login />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/article"
+          element={
+            <Suspense fallback={<LoadingBar />}>
+              <Article />
             </Suspense>
           }
         />
