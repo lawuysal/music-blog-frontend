@@ -1,25 +1,92 @@
-import { Button } from "./components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+
+import { Bars } from "react-loader-spinner";
+
 import { ThemeProvider } from "@/components/theme-provider";
-// import { ModeToggle } from "./components/mode-toggle";
+
+const Home = lazy(() => import("@/components/pages/Home/Home"));
+const Programming = lazy(
+  () => import("@/components/pages/Programming/Programming"),
+);
+const Music = lazy(() => import("@/components/pages/Music/Music"));
+const About = lazy(() => import("@/components/pages/About/About"));
+const Contact = lazy(() => import("@/components/pages/Contact/Contact"));
+const Login = lazy(() => import("@/components/pages/Login/Login"));
+
+import NavBar from "@/components/ui/NavBar";
 
 export default function App() {
-  const { toast } = useToast();
   return (
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-      <div className="mt-20 flex items-center justify-center">
-        {/* <ModeToggle /> */}
-        <Button
-          onClick={() => {
-            toast({
-              title: "Scheduled: Catch up",
-              description: "Friday, February 10, 2023 at 5:57 PM",
-            });
-          }}
-        >
-          A Nice Shad button
-        </Button>
-      </div>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      {/* <ModeToggle /> */}
+      <NavBar />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<LoadingBar />}>
+              <Home />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/programming"
+          element={
+            <Suspense fallback={<LoadingBar />}>
+              <Programming />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/music"
+          element={
+            <Suspense fallback={<LoadingBar />}>
+              <Music />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Suspense fallback={<LoadingBar />}>
+              <About />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <Suspense fallback={<LoadingBar />}>
+              <Contact />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Suspense fallback={<LoadingBar />}>
+              <Login />
+            </Suspense>
+          }
+        />
+      </Routes>
     </ThemeProvider>
+  );
+}
+
+function LoadingBar() {
+  return (
+    <div className="flex h-screen items-center justify-center">
+      <Bars
+        height="80"
+        width="80"
+        color="#3B82F6"
+        ariaLabel="bars-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+      />
+    </div>
   );
 }
