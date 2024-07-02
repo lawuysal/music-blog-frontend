@@ -99,3 +99,20 @@ function LoadingBar() {
     </div>
   );
 }
+
+//footer
+// <Card>
+//         <CardHeader>
+//           <CardTitle>About</CardTitle>
+//         </CardHeader>
+//         <CardContent>
+//           <CardDescription>
+//             <p>
+//               This is a simple website built with Vite, React, and Tailwind CSS.
+//             </p>
+//           </CardDescription>
+//         </CardContent>
+//         <CardFooter>
+//           <p>© 2021</p>
+//         </CardFooter>
+//       </Card>
