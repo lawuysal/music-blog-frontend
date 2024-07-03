@@ -1,11 +1,5 @@
 import AppRoutes from "./Routes/AppRoutes";
-
-
-
 import { ThemeProvider } from "@/components/theme-provider";
-
-
-
 import NavBar from "@/components/NavBar/NavBar";
 
 export default function App() {
@@ -17,8 +11,6 @@ export default function App() {
     </ThemeProvider>
   );
 }
-
-
 
 //footer
 // <Card>

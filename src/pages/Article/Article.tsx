@@ -42,7 +42,6 @@ export default function Article() {
   `;
 
   const mdJson = JSON.stringify(markii);
-  console.log(mdJson);
   const markbaba = JSON.parse(mdJson);
 
   return (

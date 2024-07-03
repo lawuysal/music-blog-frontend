@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
+import { Plus } from "lucide-react";
 
 export default function NavBarNormalMenu() {
   const navigate = useNavigate();
@@ -30,6 +31,12 @@ export default function NavBarNormalMenu() {
         </Link>
       </div>
       <div className="hidden gap-2 md:flex">
+        <Button
+          variant={"outline"}
+          onClick={() => navigate("/article-creation")}
+        >
+          <Plus />
+        </Button>
         <Button
           variant={"secondary"}
           className="hidden md:flex"
