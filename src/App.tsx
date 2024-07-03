@@ -15,7 +15,7 @@ const Contact = lazy(() => import("@/components/pages/Contact/Contact"));
 const Login = lazy(() => import("@/components/pages/Login/Login"));
 const Article = lazy(() => import("@/components/pages/Article/Article"));
 
-import NavBar from "@/components/ui/NavBar/NavBar";
+import NavBar from "@/components/NavBar/NavBar";
 
 export default function App() {
   return (
