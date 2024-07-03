@@ -74,6 +74,16 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
+            code: {
+              color: theme("colors.primary.DEFAULT"),
+              backgroundColor: theme("colors.muted.DEFAULT"),
+              padding: "0.1em 0.25em",
+              borderRadius: "0.25em",
+              "&::before, &::after": {
+                content: '""',
+                display: "none",
+              },
+            },
             "--tw-prose-invert-pre-bg": "hsl(217.2 32.6% 17.5%)",
             maxWidth: "100ch",
             h2: {

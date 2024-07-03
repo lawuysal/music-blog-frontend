@@ -6,7 +6,7 @@ export default function Article() {
   Music production is a complex and multifaceted process that involves a blend of creativity, technical skills, and artistic vision. While technology has made certain aspects more accessible, the intricacies of crafting a compelling piece of music remain profound.
 
   ## 2. Main Topic
-  At its core, music production encompasses a variety of stages,
+  At its core, \`music production\` encompasses a variety of stages,
   including composition, recording, mixing, and mastering. Each of
   these stages requires a distinct set of skills and a deep
   understanding of both musical theory and audio engineering. For
@@ -40,6 +40,11 @@ export default function Article() {
   craft that requires dedication, continuous learning, and an
   unwavering passion for the art form.
   `;
+
+  const mdJson = JSON.stringify(markii);
+  console.log(mdJson);
+  const markbaba = JSON.parse(mdJson);
+
   return (
     <main className="mx-auto mb-48 grid w-10/12 max-w-screen-xl grid-cols-1 items-center justify-center justify-items-center">
       {/* <aside></aside> */}
@@ -67,7 +72,7 @@ export default function Article() {
           className="prose w-full dark:prose-invert"
           remarkPlugins={[remarkGfm]}
         >
-          {markii}
+          {markbaba}
         </Markdown>
 
         <footer className="flex flex-col gap-10">
