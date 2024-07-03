@@ -1,6 +1,45 @@
-import { Separator } from "@/components/ui/separator";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default function Article() {
+  const markii = `## 1. Introduction
+  Music production is a complex and multifaceted process that involves a blend of creativity, technical skills, and artistic vision. While technology has made certain aspects more accessible, the intricacies of crafting a compelling piece of music remain profound.
+
+  ## 2. Main Topic
+  At its core, music production encompasses a variety of stages,
+  including composition, recording, mixing, and mastering. Each of
+  these stages requires a distinct set of skills and a deep
+  understanding of both musical theory and audio engineering. For
+  instance, the composition phase demands creativity and an ability to
+  convey emotions through melodies and harmonies. Recording involves
+  capturing the best performance with the right equipment, while
+  mixing and mastering refine the sound to achieve a polished final
+  product.
+
+  Moreover, the subjective nature of music adds another layer of
+  complexity. What resonates with one person may not have the same
+  effect on another, making it challenging to create universally
+  appealing music. Producers must constantly balance technical
+  precision with artistic intuition to craft pieces that are both
+  technically sound and emotionally engaging.
+
+  ### 2.1 Technological Advances
+  While advancements in technology have democratized access to music
+  production tools, they have also introduced new challenges. Software
+  and hardware updates require continuous learning and adaptation.
+  Additionally, the sheer number of available tools and plugins can be
+  overwhelming, necessitating producers to make informed choices about
+  which ones best suit their needs.
+
+  ## 3. Conclusion
+  In conclusion, the complexity of music production lies in its
+  combination of technical expertise and creative artistry. Despite
+  technological advancements making tools more accessible, the nuanced
+  nature of creating music that resonates on an emotional level
+  ensures that music production cannot be simplified. It remains a
+  craft that requires dedication, continuous learning, and an
+  unwavering passion for the art form.
+  `;
   return (
     <main className="mx-auto mb-48 grid w-10/12 max-w-screen-xl grid-cols-1 items-center justify-center justify-items-center">
       {/* <aside></aside> */}
@@ -23,63 +62,14 @@ export default function Article() {
             />
           </div>
         </header>
-        <section>
-          <h2 className="text-2xl font-bold">Introduction</h2>
-          <Separator className="mb-4" />
-          <p className="text-sm md:text-base">
-            Music production is a complex and multifaceted process that involves
-            a blend of creativity, technical skills, and artistic vision. While
-            technology has made certain aspects more accessible, the intricacies
-            of crafting a compelling piece of music remain profound.
-          </p>
-        </section>
-        <section>
-          <h2 className="text-2xl font-bold">Main Topic</h2>
-          <Separator className="mb-4" />
-          <p className="text-sm md:text-base">
-            At its core, music production encompasses a variety of stages,
-            including composition, recording, mixing, and mastering. Each of
-            these stages requires a distinct set of skills and a deep
-            understanding of both musical theory and audio engineering. For
-            instance, the composition phase demands creativity and an ability to
-            convey emotions through melodies and harmonies. Recording involves
-            capturing the best performance with the right equipment, while
-            mixing and mastering refine the sound to achieve a polished final
-            product.
-          </p>
-          <p className="text-sm md:text-base">
-            Moreover, the subjective nature of music adds another layer of
-            complexity. What resonates with one person may not have the same
-            effect on another, making it challenging to create universally
-            appealing music. Producers must constantly balance technical
-            precision with artistic intuition to craft pieces that are both
-            technically sound and emotionally engaging.
-          </p>
-          <br />
-          <h3 className="text-xl font-semibold">Technological Advances</h3>
-          <Separator className="mb-4" />
-          <p className="text-sm md:text-base">
-            While advancements in technology have democratized access to music
-            production tools, they have also introduced new challenges. Software
-            and hardware updates require continuous learning and adaptation.
-            Additionally, the sheer number of available tools and plugins can be
-            overwhelming, necessitating producers to make informed choices about
-            which ones best suit their needs.
-          </p>
-        </section>
-        <section>
-          <h2 className="text-2xl font-bold">Conclusion</h2>
-          <Separator className="mb-4" />
-          <p className="text-sm md:text-base">
-            In conclusion, the complexity of music production lies in its
-            combination of technical expertise and creative artistry. Despite
-            technological advancements making tools more accessible, the nuanced
-            nature of creating music that resonates on an emotional level
-            ensures that music production cannot be simplified. It remains a
-            craft that requires dedication, continuous learning, and an
-            unwavering passion for the art form.
-          </p>
-        </section>
+
+        <Markdown
+          className="prose w-full dark:prose-invert"
+          remarkPlugins={[remarkGfm]}
+        >
+          {markii}
+        </Markdown>
+
         <footer className="flex flex-col gap-10">
           <div className="rounded-md bg-muted p-4 text-sm md:text-base">
             <p className="">
