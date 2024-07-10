@@ -1,7 +1,12 @@
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
-import { parseMSSQLDate, formatDate } from "@/lib/utility";
+import {
+  handleCategoryLink,
+  handleFormattedDate,
+  handleTags,
+  RenderArticleImage,
+} from "./articleUtility";
 
 interface ArticleData {
   id: number;
@@ -43,14 +48,12 @@ export default function Article() {
           </div>
           <div className="flex w-full flex-col items-start justify-center self-start text-sm text-muted-foreground md:text-base">
             <p>Author: Ray Maschine</p>
-            <time dateTime="2024-07-01">Published: July 1, 2024</time>
+            <time dateTime="2024-07-01">
+              Published: {handleFormattedDate(data?.date)}
+            </time>
           </div>
           <div className="w-full object-cover">
-            <img
-              src="music-article-images\01.jpg"
-              alt="music production"
-              className="h-full w-full rounded-md object-cover ring-1"
-            />
+            {RenderArticleImage(data?.imageUrl, data?.imageDesc)}
           </div>
         </header>
 
@@ -63,13 +66,8 @@ export default function Article() {
 
         <footer className="flex flex-col gap-10">
           <div className="rounded-md bg-muted p-4 text-sm md:text-base">
-            <p className="">
-              Category: <a href="category-music.html">Music</a>
-            </p>
-            <p>
-              Tags: <a href="tag-production.html">Production</a>,{" "}
-              <a href="tag-music.html">Music</a>
-            </p>
+            <p className="">Category: {handleCategoryLink(data?.category)}</p>
+            <p>Tags: {handleTags(data?.tags)}</p>
           </div>
           <div className="rounded-md bg-muted p-6">
             <h3 className="font-semibold">About the Author</h3>

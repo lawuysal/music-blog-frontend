@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { RenderArticleImage } from "../Article/articleUtility";
 
 export default function ArticleCreation() {
   const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>(null);
@@ -124,7 +125,7 @@ export default function ArticleCreation() {
                 value="off-topic"
                 onClick={() => setCategory("off-topic")}
               >
-                Off-Topic
+                Off Topic
               </SelectItem>
             </SelectGroup>
           </SelectContent>
@@ -176,7 +177,7 @@ export default function ArticleCreation() {
               </time>
             </div>
             <div className="max-h-[180px] w-full object-cover sm:max-h-[250px] md:max-h-[300px] lg:max-h-[450px]">
-              {ArticleImageRenderer(imageSrc, imageDesc)}
+              {RenderArticleImage(imageSrc, imageDesc)}
             </div>
           </header>
 
@@ -194,28 +195,6 @@ export default function ArticleCreation() {
       </div>
     </div>
   );
-}
-
-function ArticleImageRenderer(
-  imageSrc: string | ArrayBuffer | null,
-  imageDesc: string | null,
-): ReactNode {
-  if (imageSrc) {
-    return (
-      <img
-        src={imageSrc as string}
-        alt={imageDesc || "Article Image"}
-        className="h-full max-h-[180px] w-full rounded-md object-cover ring-1 sm:max-h-[250px] md:max-h-[300px] lg:max-h-[450px]"
-      />
-    );
-  } else {
-    return (
-      <div className="flex h-[450px] max-h-[180px] w-full flex-col items-center justify-center rounded-md bg-muted object-cover ring-1 sm:max-h-[250px] md:max-h-[300px] lg:max-h-[450px]">
-        <p className="text-muted-foreground">There is no</p>
-        <p className="text-muted-foreground">image</p>
-      </div>
-    );
-  }
 }
 
 <footer className="flex flex-col gap-10">
