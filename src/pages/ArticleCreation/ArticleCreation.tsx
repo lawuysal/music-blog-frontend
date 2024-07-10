@@ -1,43 +1,182 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import Markdown from "react-markdown";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { getMSSQLDate, formatDate } from "@/lib/utility";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function ArticleCreation() {
+  const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageDesc, setImageDesc] = useState<string>("");
+
+  const [title, setTitle] = useState<string>("");
+  const [dbDate] = useState<string>(getMSSQLDate());
   const [markdown, setMarkdown] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([]);
+  const date = new Date();
+  const formattedDate = formatDate(date);
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageSrc(reader.result);
+      };
+      reader.readAsDataURL(file);
+      setImageFile(file);
+    }
+  };
+
+  function handleCreateArticle() {
+    const testArticleJson = {
+      id: 0,
+      title: title,
+      date: dbDate,
+      content: JSON.stringify(markdown),
+      imageUrl: imageSrc,
+      imageDesc: imageDesc,
+      category: category,
+      tags: tags,
+    };
+
+    console.log(JSON.stringify(tags));
+  }
+
   return (
-    <div className="mx-auto mb-48 mt-20 grid w-10/12 max-w-screen-xl grid-cols-1 items-center justify-center justify-items-center gap-y-16">
-      <div className="flex w-full flex-col gap-4 md:w-3/5">
+    <div className="mx-auto mb-48 mt-10 grid w-10/12 max-w-screen-md grid-cols-1 items-center justify-center justify-items-center gap-y-8 md:mt-20 md:w-3/4 md:gap-y-16 lg:w-3/5">
+      {/* Title */}
+      <div className="flex w-full flex-col gap-2 md:gap-4">
+        <Label htmlFor="article-title">Title:</Label>
+        <Input
+          type="text"
+          id="article-title"
+          placeholder="Type a Nice Title..."
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </div>
+
+      {/* Image */}
+      <div className="flex w-full flex-col gap-2 md:gap-4">
+        <Label htmlFor="article-image">Image:</Label>
+        <Input
+          type="file"
+          id="article-image"
+          accept="image/*,"
+          onChange={handleImageChange}
+        />
+      </div>
+
+      {/* Image Description */}
+      <div className="flex w-full flex-col gap-2 md:gap-4">
+        <Label htmlFor="article-image-alt">Image Description:</Label>
+        <Input
+          type="text"
+          id="article-image-alt"
+          placeholder="Make it short..."
+          value={imageDesc}
+          onChange={(e) => setImageDesc(e.target.value)}
+        />
+      </div>
+
+      {/* Category */}
+      <div className="flex w-full flex-col gap-2 md:gap-4">
+        <Label htmlFor="category">Category:</Label>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Select a category" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Categories</SelectLabel>
+              <SelectItem
+                value="music-news"
+                onClick={() => setCategory("music-news")}
+              >
+                Music News
+              </SelectItem>
+              <SelectItem
+                value="reviews"
+                onClick={() => setCategory("reviews")}
+              >
+                Reviews
+              </SelectItem>
+              <SelectItem
+                value="tutorials"
+                onClick={() => setCategory("tutorials")}
+              >
+                Tutorials
+              </SelectItem>
+              <SelectItem
+                value="off-topic"
+                onClick={() => setCategory("off-topic")}
+              >
+                Off-Topic
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Tags */}
+      <div className="flex w-full flex-col gap-2 md:gap-4">
+        <Label htmlFor="tags">Tags:</Label>
+        <Input
+          type="text"
+          id="tags"
+          placeholder="Seperate with commas..."
+          value={tags}
+          onChange={(e) =>
+            setTags(e.target.value.split(",").map((tag) => tag.trim()))
+          }
+        />
+      </div>
+
+      {/* Markdown */}
+      <div className="flex w-full flex-col gap-2 md:gap-4">
         <Label htmlFor="markdown-edit">Markdown:</Label>
         <Textarea
           value={markdown}
           onChange={(e) => setMarkdown(e.target.value)}
           id="markdown-edit"
+          placeholder="Type your article here..."
         ></Textarea>
       </div>
 
-      <div className="flex max-w-screen-xl flex-col gap-4 md:w-3/5">
+      {/* Preview */}
+      <div className="flex w-full max-w-screen-xl flex-col gap-2 md:gap-4">
         <Label htmlFor="article-preview">Preview:</Label>
         <article
           id="article-preview"
-          className="flex max-w-screen-xl flex-col gap-12 rounded-md p-8 ring-1"
+          className="flex max-w-screen-xl flex-col gap-12 rounded-md p-4 ring-1"
         >
           <header className="mt-10 flex max-w-screen-2xl flex-col items-center justify-center gap-10 md:mt-20">
             <div className="flex items-center justify-center self-start">
               <h1 className="text-center text-4xl font-semibold md:text-left md:text-6xl">
-                Why Music Production Can't Be Simplified
+                {title || "Article Title "}
               </h1>
             </div>
-            <div className="flex flex-col items-start justify-center self-start text-sm text-muted-foreground md:text-base">
+            <div className="flex w-full flex-col items-start justify-center self-start text-sm text-muted-foreground md:text-base">
               <p>Author: Ray Maschine</p>
-              <time dateTime="2024-07-01">Published: July 1, 2024</time>
+              <time dateTime={date.toISOString()}>
+                Published: {formattedDate}
+              </time>
             </div>
-            <div className="w-full object-cover">
-              <img
-                src="public\music-article-images\01.jpg"
-                alt="music production"
-                className="h-full w-full rounded-md object-cover ring-1"
-              />
+            <div className="max-h-[180px] w-full object-cover sm:max-h-[250px] md:max-h-[300px] lg:max-h-[450px]">
+              {ArticleImageRenderer(imageSrc, imageDesc)}
             </div>
           </header>
 
@@ -46,6 +185,62 @@ export default function ArticleCreation() {
           </Markdown>
         </article>
       </div>
+      <div className="flex gap-2 rounded-md p-4 md:gap-4">
+        <Button variant={"outline"}>Clean</Button>
+        <Button variant={"secondary"}>Save Draft</Button>
+        <Button variant={"default"} onClick={handleCreateArticle}>
+          Create
+        </Button>
+      </div>
     </div>
   );
 }
+
+function ArticleImageRenderer(
+  imageSrc: string | ArrayBuffer | null,
+  imageDesc: string | null,
+): ReactNode {
+  if (imageSrc) {
+    return (
+      <img
+        src={imageSrc as string}
+        alt={imageDesc || "Article Image"}
+        className="h-full max-h-[180px] w-full rounded-md object-cover ring-1 sm:max-h-[250px] md:max-h-[300px] lg:max-h-[450px]"
+      />
+    );
+  } else {
+    return (
+      <div className="flex h-[450px] max-h-[180px] w-full flex-col items-center justify-center rounded-md bg-muted object-cover ring-1 sm:max-h-[250px] md:max-h-[300px] lg:max-h-[450px]">
+        <p className="text-muted-foreground">There is no</p>
+        <p className="text-muted-foreground">image</p>
+      </div>
+    );
+  }
+}
+
+<footer className="flex flex-col gap-10">
+  <div className="rounded-md bg-muted p-4 text-sm md:text-base">
+    <p className="">
+      Category: <a href="category-music.html">Music</a>
+    </p>
+    <p>
+      Tags: <a href="tag-production.html">Production</a>,{" "}
+      <a href="tag-music.html">Music</a>
+    </p>
+  </div>
+  <div className="rounded-md bg-muted p-6">
+    <h3 className="font-semibold">About the Author</h3>
+    <div className="mt-8 flex flex-col items-center justify-center gap-8 md:gap-12 lg:flex-row">
+      <img
+        src="author-image.webp"
+        alt="image-of-the-author"
+        className="size-28 rounded-full md:size-32"
+      />
+      <p className="text-sm md:text-base">
+        John Doe is a music producer with over a decade of experience in the
+        industry. He has worked with numerous artists and enjoys sharing his
+        insights on the creative process.
+      </p>
+    </div>
+  </div>
+</footer>;

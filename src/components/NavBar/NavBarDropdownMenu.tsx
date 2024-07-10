@@ -43,6 +43,9 @@ export default function NavBarDropdownMenu() {
           <DropdownMenuItem className="invisible"></DropdownMenuItem>
           <DropdownMenuLabel>Manage</DropdownMenuLabel>
           <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={() => navigate("/article-creation")}>
+            Article Creation
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => navigate("/Contact")}>
             Contact
           </DropdownMenuItem>

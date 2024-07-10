@@ -98,6 +98,18 @@ module.exports = {
               lineHeight: "1.75rem" /* 28px */,
               fontWeight: 600,
             },
+            img: {
+              objectFit: "cover",
+              borderRadius: "0.375rem",
+              boxShadow:
+                "var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color)",
+              width: "100%",
+              height: "100%",
+              maxHeight: "180px",
+              "@media (min-width: 640px)": { maxHeight: "250px" },
+              "@media (min-width: 768px)": { maxHeight: "300px" },
+              "@media (min-width: 1024px)": { maxHeight: "450px" },
+            },
           },
         },
       }),
