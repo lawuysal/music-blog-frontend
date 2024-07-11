@@ -5,7 +5,6 @@ import NavBar from "@/components/NavBar/NavBar";
 export default function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      {/* <ModeToggle /> */}
       <NavBar />
       <AppRoutes />
     </ThemeProvider>
