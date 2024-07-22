@@ -4,6 +4,7 @@ import { BsGithub } from "react-icons/bs";
 
 export default function Home() {
   const navigate = useNavigate();
+
   return (
     <div className="relative mb-48 mt-8 flex max-w-6xl flex-col items-center justify-center gap-12 sm:mt-10 md:mx-auto md:mt-0 lg:mt-20">
       <div className="">

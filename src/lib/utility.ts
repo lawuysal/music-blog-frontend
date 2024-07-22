@@ -13,7 +13,7 @@ export function getMSSQLDate(): string {
 }
 
 export function parseMSSQLDate(mssqlDate: string): Date {
-  const [datePart, timePart] = mssqlDate.split(" ");
+  const [datePart, timePart] = mssqlDate.split("T");
   const [year, month, day] = datePart.split("-").map(Number);
   const [hours, minutes, seconds] = timePart.split(":").map(Number);
 

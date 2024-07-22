@@ -11,21 +11,7 @@ export function handleFormattedDate(dbDate: string | undefined): string {
 }
 
 export function handleCategoryLink(category: string | undefined): ReactNode {
-  let parsedCategoryText: string = "";
-  if (!category) {
-    parsedCategoryText = "Loading...";
-  } else {
-    if (category.includes("-")) {
-      parsedCategoryText = category
-        .split("-")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
-    } else {
-      parsedCategoryText = category.charAt(0).toUpperCase() + category.slice(1);
-    }
-  }
-
-  return <Button variant={"link"}>{parsedCategoryText}</Button>;
+  return <Button variant={"link"}>{category}</Button>;
 }
 
 export function handleTags(tags: string[] | undefined): ReactNode {

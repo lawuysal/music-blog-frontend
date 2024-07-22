@@ -2,7 +2,7 @@ import { Bars } from "react-loader-spinner";
 
 export default function LoadingBar() {
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex h-[60vh] items-center justify-center md:h-screen">
       <Bars
         height="80"
         width="80"
