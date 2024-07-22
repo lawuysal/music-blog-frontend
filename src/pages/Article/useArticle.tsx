@@ -1,15 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-
-type Article = {
-  id: string;
-  title: string;
-  date: string;
-  content: string;
-  imageUrl: string;
-  imageDesc: string;
-  categoryId: string;
-  tags: string[];
-};
+import Article from "@/types/ArticleInterface";
 
 type Category = {
   id: string;

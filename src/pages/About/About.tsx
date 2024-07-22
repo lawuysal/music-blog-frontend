@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function About() {
   return (
-    <div className="relative flex h-[35rem] max-w-6xl items-center justify-center md:mx-auto md:mt-0">
+    <div className="relative flex h-[35rem] max-w-6xl items-center justify-center transition-all duration-300 ease-in-out md:mx-auto md:mt-0">
       <div className="absolute left-[8%] top-16 -z-30 h-[32rem] w-56 -rotate-[30deg] rounded-full bg-primary opacity-40 blur-[72px] filter dark:opacity-30 lg:left-[18%]"></div>
       <div className="absolute left-[45%] -z-30 h-[30rem] w-28 -rotate-[30deg] rounded-full bg-destructive opacity-50 blur-[72px] filter dark:opacity-45 lg:left-[70%]"></div>
 

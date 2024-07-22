@@ -29,3 +29,14 @@ export function formatDate(date: Date): string {
     })
     .replace(/(\d+)(.+?)(\d+)/, "$2$1, $3");
 }
+
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+export const useScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+};

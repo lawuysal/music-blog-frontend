@@ -57,7 +57,7 @@ export default function ArticleCreation() {
   }
 
   return (
-    <div className="mx-auto mb-48 mt-10 grid w-10/12 max-w-screen-md grid-cols-1 items-center justify-center justify-items-center gap-y-8 md:mt-20 md:w-3/4 md:gap-y-16 lg:w-3/5">
+    <div className="mx-auto mb-48 mt-10 grid w-10/12 max-w-screen-md grid-cols-1 items-center justify-center justify-items-center gap-y-8 transition-all duration-300 ease-in-out md:mt-20 md:w-3/4 md:gap-y-16 lg:w-3/5">
       {/* Title */}
       <div className="flex w-full flex-col gap-2 md:gap-4">
         <Label htmlFor="article-title">Title:</Label>

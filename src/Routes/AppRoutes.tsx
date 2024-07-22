@@ -12,6 +12,9 @@ const Article = lazy(() => import("@/pages/Article/Article"));
 const ArticleCreation = lazy(
   () => import("@/pages/ArticleCreation/ArticleCreation"),
 );
+const ArticleGallery = lazy(
+  () => import("@/pages/ArticleGallery/ArticleGallery"),
+);
 
 export default function AppRoutes() {
   return (
@@ -65,7 +68,7 @@ export default function AppRoutes() {
         }
       />
       <Route
-        path="/article"
+        path="/article/:articleId"
         element={
           <Suspense fallback={<LoadingBar />}>
             <Article />
@@ -77,6 +80,14 @@ export default function AppRoutes() {
         element={
           <Suspense fallback={<LoadingBar />}>
             <ArticleCreation />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/article-gallery"
+        element={
+          <Suspense fallback={<LoadingBar />}>
+            <ArticleGallery />
           </Suspense>
         }
       />

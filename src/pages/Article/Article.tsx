@@ -6,14 +6,16 @@ import {
   handleTags,
   RenderArticleImage,
 } from "./articleUtility";
+import { useParams } from "react-router-dom";
+import { useScrollToTop } from "@/lib/utility.ts";
 
 import useArticle from "./useArticle.tsx";
 import LoadingBar from "@/components/ui/LoadingBar.tsx";
 
 export default function Article() {
-  const { articleQuery, categoryQuery } = useArticle(
-    "081baf03-35fd-4529-4c53-08dcaa557f95",
-  );
+  useScrollToTop();
+  const { articleId } = useParams();
+  const { articleQuery, categoryQuery } = useArticle(articleId as string);
 
   if (articleQuery.isLoading) {
     return <LoadingBar />;
@@ -28,7 +30,7 @@ export default function Article() {
       <article className="flex w-full max-w-screen-xl flex-col gap-12">
         <header className="mt-10 flex max-w-screen-2xl flex-col items-center justify-center gap-10 md:mt-20">
           <div className="flex items-center justify-center self-start">
-            <h1 className="text-center text-4xl font-semibold md:text-left md:text-6xl">
+            <h1 className="text-left text-4xl font-semibold md:text-6xl">
               {articleQuery.data?.title || "Loading..."}
             </h1>
           </div>
@@ -62,21 +64,6 @@ export default function Article() {
                 : handleCategoryLink(categoryQuery.data?.name)}
             </p>
             <p>Tags: {handleTags(articleQuery.data?.tags)}</p>
-          </div>
-          <div className="rounded-md bg-muted p-6">
-            <h3 className="font-semibold">About the Author</h3>
-            <div className="mt-8 flex flex-col items-center justify-center gap-8 md:gap-12 lg:flex-row">
-              <img
-                src="author-image.webp"
-                alt="image-of-the-author"
-                className="size-28 rounded-full md:size-32"
-              />
-              <p className="text-sm md:text-base">
-                John Doe is a music producer with over a decade of experience in
-                the industry. He has worked with numerous artists and enjoys
-                sharing his insights on the creative process.
-              </p>
-            </div>
           </div>
         </footer>
       </article>
