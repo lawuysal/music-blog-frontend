@@ -12,10 +12,10 @@ export default function NavBarNormalMenu() {
           Home
         </Link>
         <Link
-          to={"/programming"}
+          to={"/image-gallery"}
           className="flex items-center gap-2 text-lg md:text-base"
         >
-          Programming
+          Gallery
         </Link>
         <Link
           to={"/music"}

@@ -31,8 +31,8 @@ export default function NavBarDropdownMenu() {
           <DropdownMenuItem onClick={() => navigate("/")}>
             Home
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => navigate("/programming")}>
-            Programming
+          <DropdownMenuItem onClick={() => navigate("/image-gallery")}>
+            Gallery
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => navigate("/music")}>
             Music
