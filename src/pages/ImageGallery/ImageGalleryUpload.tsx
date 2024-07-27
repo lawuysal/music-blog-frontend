@@ -86,18 +86,18 @@ export default function ImageGalleryUpload() {
           Upload
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-10/12">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Upload a New Image</DialogTitle>
           <DialogDescription>
             Please do not upload more than 15 MB.
           </DialogDescription>
         </DialogHeader>
-        <div className="flex w-full flex-col gap-2 md:gap-4">
+        <div className="flex w-full flex-col gap-2 md:gap-3">
           <Label>Choose an Image:</Label>
           <Input type="file" accept="image/*," onChange={handleImageChange} />
         </div>
-        <div className="flex w-full flex-col gap-2 md:gap-4">
+        <div className="flex w-full flex-col gap-2 md:gap-3">
           <Label>Image Name:</Label>
           <Input
             type="text"

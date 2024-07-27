@@ -1,4 +1,3 @@
-import { ENDOPOINTS } from "@/api/endpoints";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,11 +8,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { toast } from "@/components/ui/use-toast";
 import { formatDate, parseMSSQLDate, formatFileSize } from "@/lib/utility";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Trash2, Calendar, Clipboard, Check } from "lucide-react";
+import { Calendar, Clipboard, Check } from "lucide-react";
 import { useState } from "react";
+import ImageGalleryDelete from "./ImageGalleryDelete";
 
 export default function ImageCard({
   imageId,
@@ -30,7 +28,6 @@ export default function ImageCard({
   imageCreatedAt: string;
   imageSizeInBytes: number;
 }) {
-  const queryClient = useQueryClient();
   const [copied, setCopied] = useState(false);
 
   function handleCopyLink() {
@@ -39,34 +36,6 @@ export default function ImageCard({
     setTimeout(() => {
       setCopied(false);
     }, 5000);
-  }
-
-  const deleteImageMutation = useMutation({
-    mutationFn: handleImageDelete,
-    onSuccess: () => {
-      toast({
-        title: "Delete Successful",
-        description: "The image has been deleted successfully.",
-      });
-      queryClient.invalidateQueries({ queryKey: ["gallery-images"] });
-    },
-  });
-
-  function handleImageDelete(id: string) {
-    return fetch(`${ENDOPOINTS.GALLERY_IMAGES}/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => {
-        if (!res.ok) {
-          return res.text().then((text) => {
-            throw new Error(text || "An error occurred");
-          });
-        }
-        return;
-      })
-      .catch((error) => {
-        throw new Error(error.message);
-      });
   }
 
   return (
@@ -111,13 +80,7 @@ export default function ImageCard({
               </>
             )}
           </Button>
-          <Button
-            variant="destructive"
-            className="text-sm"
-            onClick={() => deleteImageMutation.mutate(imageId)}
-          >
-            <Trash2 size={16} />
-          </Button>
+          <ImageGalleryDelete imageId={imageId} />
         </CardFooter>
       </Card>
     </div>
