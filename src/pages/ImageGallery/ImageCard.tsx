@@ -40,10 +40,10 @@ export default function ImageCard({
 
   return (
     <div className="">
-      <Card className="h-fit w-72">
+      <Card className="h-fit w-[19rem]">
         <CardContent className="p-0 pb-4">
           <img
-            className="h-48 w-72 rounded-tl-lg rounded-tr-lg bg-muted object-contain ring-1"
+            className="h-48 w-[19rem] rounded-tl-lg rounded-tr-lg bg-muted object-contain ring-1"
             src={imageUrl}
             alt=""
           />

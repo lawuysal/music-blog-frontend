@@ -44,7 +44,7 @@ export default function ImageGallery() {
 
   return (
     <div className="mx-auto mt-10 flex max-w-screen-xl flex-col items-center justify-center gap-8 lg:mt-20">
-      <div className="flex w-full items-center justify-center gap-4">
+      <div className="flex w-full items-center justify-center gap-4 xl:justify-start">
         <Tabs defaultValue="newest" value={tab} onValueChange={handleTabChange}>
           <TabsList>
             <TabsTrigger value="newest">Newest</TabsTrigger>
@@ -53,7 +53,7 @@ export default function ImageGallery() {
         </Tabs>
         <ImageGalleryUpload />
       </div>
-      <div className="grid w-full grid-cols-1 grid-rows-1 place-items-center items-center justify-center gap-y-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid w-10/12 grid-cols-1 place-items-center items-center justify-center gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 xl:w-full xl:grid-cols-4">
         {galleryImagesQuery.data?.map((image: Image) => (
           <ImageCard
             key={image.id}

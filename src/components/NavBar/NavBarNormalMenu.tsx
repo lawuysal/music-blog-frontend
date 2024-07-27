@@ -30,7 +30,7 @@ export default function NavBarNormalMenu() {
           About
         </Link>
       </div>
-      <div className="hidden gap-2 md:flex">
+      <div className="hidden gap-2 justify-self-end md:flex">
         <Button
           variant={"outline"}
           onClick={() => navigate("/article-creation")}

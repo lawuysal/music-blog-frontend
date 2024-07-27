@@ -6,8 +6,8 @@ export default function NavBar() {
   const navigate = useNavigate();
   return (
     <header className="mx-auto w-10/12 max-w-screen-xl">
-      <nav className="mt-3 flex flex-col items-center justify-between gap-5 md:mt-5 lg:grid lg:grid-cols-[1fr_2fr_1fr] lg:flex-row lg:justify-items-center">
-        <div className="flex h-fit items-center justify-center gap-2">
+      <nav className="mt-3 flex flex-col items-center gap-5 md:mt-5 lg:grid lg:grid-cols-[1fr_2fr_1fr] lg:flex-row lg:justify-items-center">
+        <div className="flex h-fit items-center justify-start gap-2 justify-self-start">
           <h1
             className="cursor-pointer text-3xl font-semibold lg:text-2xl"
             onClick={() => navigate("/")}
