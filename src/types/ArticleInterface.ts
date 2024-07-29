@@ -3,8 +3,8 @@ export default interface Article {
   title: string;
   date: string;
   content: string;
-  imageUrl: string;
+  articleImageId: string;
   imageDesc: string;
   categoryId: string;
-  tags: string[];
+  tags: string;
 }

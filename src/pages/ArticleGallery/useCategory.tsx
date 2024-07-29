@@ -7,6 +7,7 @@ type Category = {
 
 export default function useCategory(categoryId: string) {
   const categoryQuery = useQuery<Category, Error>({
+    enabled: categoryId !== undefined,
     queryKey: ["category", categoryId],
     queryFn: () => {
       return fetch(`https://localhost:7208/api/Categories/${categoryId}`)

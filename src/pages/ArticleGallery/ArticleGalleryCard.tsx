@@ -12,24 +12,34 @@ import { Separator } from "@/components/ui/separator";
 import useCategory from "./useCategory";
 import { useNavigate } from "react-router-dom";
 import { handleFormattedDate } from "../Article/articleUtility";
+import { BASE_URL } from "@/api/endpoints";
+import { Share } from "lucide-react";
+import useArticleImage from "./useArticleImage";
+import LoadingBar from "@/components/ui/LoadingBar";
+import ArticleGalleryDelete from "./ArticleGalleryDelete";
 
 export default function GalleryCard({
   title,
   categoryId,
   articleId,
-  imageUrl,
+  imageId,
   imageDesc,
   date,
 }: {
   title: string;
   categoryId: string;
   articleId: string;
-  imageUrl: string;
+  imageId: string;
   imageDesc: string;
   date: string;
 }): ReactNode {
   const category = useCategory(categoryId);
+  const articleImage = useArticleImage(imageId);
   const navigate = useNavigate();
+
+  if (articleImage.isLoading) {
+    return <LoadingBar />;
+  }
 
   return (
     <Card className="ease- grid grid-rows-1 shadow-md transition-all duration-300 ease-in-out hover:scale-[1.02] dark:ring-1">
@@ -41,11 +51,17 @@ export default function GalleryCard({
           <p>{category?.name}</p>
         </CardDescription>
       </CardHeader>
-      <CardContent>{RenderArticleCardImage(imageUrl, imageDesc)}</CardContent>
-      <CardFooter>
+      <CardContent>
+        {RenderArticleCardImage(`${articleImage.data?.filePath}`, imageDesc)}
+      </CardContent>
+      <CardFooter className="flex gap-4">
         <Button onClick={() => navigate(`/article/${articleId}`)}>
           Read More
         </Button>
+        <Button variant="secondary">
+          <Share size={16} />
+        </Button>
+        <ArticleGalleryDelete articleId={articleId} />
       </CardFooter>
     </Card>
   );
@@ -58,7 +74,7 @@ function RenderArticleCardImage(
   if (imageSrc) {
     return (
       <img
-        src={imageSrc as string}
+        src={`${BASE_URL}/${imageSrc}`}
         alt={imageDesc || "Article Image"}
         className="max-h-[200px] w-full rounded-md object-cover ring-1 md:max-h-[150px] lg:max-h-[175px] xl:max-h-[250px]"
       />

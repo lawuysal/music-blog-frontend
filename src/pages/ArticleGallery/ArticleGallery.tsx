@@ -1,4 +1,4 @@
-import GalleryCard from "./GalleryCard";
+import GalleryCard from "./ArticleGalleryCard";
 import { useQuery } from "@tanstack/react-query";
 import LoadingBar from "@/components/ui/LoadingBar";
 import Article from "@/types/ArticleInterface";
@@ -59,7 +59,7 @@ export default function ArticleGallery() {
             title={article.title}
             categoryId={article.categoryId}
             articleId={article.id}
-            imageUrl={article.imageUrl}
+            imageId={article.articleImageId}
             imageDesc={article.imageDesc}
             date={article.date}
           />

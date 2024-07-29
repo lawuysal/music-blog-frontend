@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import Markdown from "react-markdown";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -14,46 +14,185 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { RenderArticleImage } from "../Article/articleUtility";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { ENDOPOINTS } from "@/api/endpoints";
+import LoadingBar from "@/components/ui/LoadingBar";
+import { toast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
+
+type Category = {
+  id: string;
+  name: string;
+};
+
+type ArticleDraft = {
+  title: string;
+  markdown: string;
+  imageDesc: string;
+  tags: string[];
+  categoryId: string;
+};
 
 export default function ArticleCreation() {
-  const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>(null);
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imageDesc, setImageDesc] = useState<string>("");
+  const articleDraft: ArticleDraft = JSON.parse(
+    localStorage.getItem("articleDraft") || "{}",
+  );
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
-  const [title, setTitle] = useState<string>("");
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
+
+  const [title, setTitle] = useState<string>(articleDraft.title || "");
   const [dbDate] = useState<string>(getMSSQLDate());
-  const [markdown, setMarkdown] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
-  const [tags, setTags] = useState<string[]>([]);
+  const [markdown, setMarkdown] = useState<string>(articleDraft.markdown || "");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageDesc, setImageDesc] = useState<string>(
+    articleDraft.imageDesc || "",
+  );
+  const [tags, setTags] = useState<string[]>(articleDraft.tags || []);
+  const [categoryId, setCategoryId] = useState<string>(
+    articleDraft.categoryId || "",
+  );
+
+  const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>(null);
   const date = new Date();
   const formattedDate = formatDate(date);
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
+  const categoryIdQuery = useQuery<Category[], Error>({
+    queryKey: ["categories"],
+    queryFn: () => {
+      return fetch(ENDOPOINTS.CATEGORIES).then((res) => res.json());
+    },
+  });
+
+  const articleCreationMutation = useMutation({
+    mutationFn: (formData: FormData) => {
+      return fetch(ENDOPOINTS.ARTICLES, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => {
+          if (!res.ok) {
+            return res.json().then((data) => {
+              throw new Error(data.message);
+            });
+          }
+          return res.json();
+        })
+        .catch((error) => {
+          throw new Error(error.message);
+        });
+    },
+    onError: (error) => {
+      toast({
+        title: "Article Creation Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Article Created",
+        description: `"${title}" has been created successfully.`,
+      });
+      queryClient.invalidateQueries({ queryKey: ["article-gallery"] });
+      navigate("/article-gallery");
+    },
+  });
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImageFile(e.target.files[0]);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageSrc(reader.result);
       };
-      reader.readAsDataURL(file);
-      setImageFile(file);
+      reader.readAsDataURL(e.target.files[0]);
     }
   };
 
-  function handleCreateArticle() {
-    const testArticleJson = {
-      id: 0,
-      title: title,
-      date: dbDate,
-      content: JSON.stringify(markdown),
-      imageUrl: imageSrc,
-      imageDesc: imageDesc,
-      category: category,
-      tags: tags,
-    };
+  function handleArticleClear() {
+    localStorage.removeItem("articleDraft");
+    setTitle("");
+    setMarkdown("");
+    setImageFile(null);
+    setImageSrc(null);
+    setImageDesc("");
+    setTags([]);
+    setCategoryId("");
+  }
 
-    console.log(JSON.stringify(tags));
+  function handleArticleDraft() {
+    localStorage.setItem(
+      "articleDraft",
+      JSON.stringify({
+        title,
+        markdown,
+        imageDesc,
+        tags,
+        categoryId,
+      }),
+    );
+  }
+
+  function handleCreateArticle() {
+    const formData = new FormData();
+    // title
+    // date
+    // content
+    // image
+    // image description
+    // tags
+    // categoryId
+
+    formData.append("title", title);
+    formData.append("date", dbDate);
+    formData.append("content", JSON.stringify(markdown));
+    formData.append("articleImageFile", imageFile as Blob);
+    formData.append("imageDesc", imageDesc);
+    formData.append("tags", JSON.stringify(tags));
+    formData.append("categoryId", categoryId);
+
+    if (formData.get("title") === "") {
+      setDialogMessage("Title is Empty!");
+      return setDialogOpen(true);
+    }
+    if (formData.get("image") === "null") {
+      setDialogMessage("Image is not Selected!");
+      return setDialogOpen(true);
+    }
+    if (formData.get("imageDesc") === "") {
+      setDialogMessage("Image Description is Empty!");
+      return setDialogOpen(true);
+    }
+    if (formData.get("categoryId") === "") {
+      setDialogMessage("Category is not Selected!");
+      return setDialogOpen(true);
+    }
+    if (formData.get("tags") === "[]" || formData.get("tags") === '[""]') {
+      setDialogMessage("Tags are Empty!");
+      return setDialogOpen(true);
+    }
+    if (formData.get("content") === "") {
+      setDialogMessage("Markdown is Empty!");
+      return setDialogOpen(true);
+    }
+
+    articleCreationMutation.mutate(formData);
+  }
+
+  if (categoryIdQuery.isLoading) {
+    return <LoadingBar />;
   }
 
   return (
@@ -96,37 +235,18 @@ export default function ArticleCreation() {
       {/* Category */}
       <div className="flex w-full flex-col gap-2 md:gap-4">
         <Label htmlFor="category">Category:</Label>
-        <Select>
+        <Select value={categoryId} onValueChange={setCategoryId}>
           <SelectTrigger>
             <SelectValue placeholder="Select a category" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Categories</SelectLabel>
-              <SelectItem
-                value="music-news"
-                onClick={() => setCategory("music-news")}
-              >
-                Music News
-              </SelectItem>
-              <SelectItem
-                value="reviews"
-                onClick={() => setCategory("reviews")}
-              >
-                Reviews
-              </SelectItem>
-              <SelectItem
-                value="tutorials"
-                onClick={() => setCategory("tutorials")}
-              >
-                Tutorials
-              </SelectItem>
-              <SelectItem
-                value="off-topic"
-                onClick={() => setCategory("off-topic")}
-              >
-                Off Topic
-              </SelectItem>
+              {categoryIdQuery.data?.map((category) => (
+                <SelectItem value={category.id} key={category.id}>
+                  {category.name}
+                </SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>
@@ -187,17 +307,37 @@ export default function ArticleCreation() {
         </article>
       </div>
       <div className="flex gap-2 rounded-md p-4 md:gap-4">
-        <Button variant={"outline"}>Clean</Button>
-        <Button variant={"secondary"}>Save Draft</Button>
+        <Button variant={"outline"} onClick={handleArticleClear}>
+          Clear
+        </Button>
+        <Button variant={"secondary"} onClick={handleArticleDraft}>
+          Save Draft
+        </Button>
         <Button variant={"default"} onClick={handleCreateArticle}>
           Create
         </Button>
       </div>
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {dialogMessage || "Some of the Fields are Empty!"}
+            </DialogTitle>
+            <DialogDescription>
+              Please fill out all the fields before submitting the article.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button onClick={() => setDialogOpen(false)}>Close</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
 
-<footer className="flex flex-col gap-10">
+{
+  /* <footer className="flex flex-col gap-10">
   <div className="rounded-md bg-muted p-4 text-sm md:text-base">
     <p className="">
       Category: <a href="category-music.html">Music</a>
@@ -222,4 +362,5 @@ export default function ArticleCreation() {
       </p>
     </div>
   </div>
-</footer>;
+</footer>; */
+}
