@@ -13,14 +13,23 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ENDOPOINTS } from "@/api/endpoints";
 import { toast } from "@/components/ui/use-toast";
 import { Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { TokenContext, TokenContextType } from "@/context/TokenContext";
 
 export default function ImageGalleryDelete({ imageId }: { imageId: string }) {
+  const { token } = useContext(TokenContext) as TokenContextType;
   const queryClient = useQueryClient();
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const deleteImageMutation = useMutation({
     mutationFn: handleImageDelete,
+    onError: (error) => {
+      toast({
+        title: "Delete Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
     onSuccess: () => {
       toast({
         title: "Delete Successful",
@@ -34,6 +43,9 @@ export default function ImageGalleryDelete({ imageId }: { imageId: string }) {
   function handleImageDelete(id: string) {
     return fetch(`${ENDOPOINTS.GALLERY_IMAGES}/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => {
         if (!res.ok) {

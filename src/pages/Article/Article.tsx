@@ -1,20 +1,21 @@
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import {
-  handleCategoryLink,
+  HandleCategoryLink,
   handleFormattedDate,
-  handleTags,
+  HandleTags,
   RenderArticleImage,
 } from "./articleUtility";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useScrollToTop } from "@/lib/utility.ts";
 
 import useArticle from "./useArticle.tsx";
 import LoadingBar from "@/components/ui/LoadingBar.tsx";
-import { BASE_URL } from "@/api/endpoints.ts";
+import { Titled } from "react-titled";
 
 export default function Article() {
   useScrollToTop();
+  const navigate = useNavigate();
   const { articleId } = useParams();
   const { articleQuery, categoryQuery } = useArticle(articleId as string);
 
@@ -42,10 +43,10 @@ export default function Article() {
             </time>
           </div>
           <div className="w-full object-cover">
-            {RenderArticleImage(
-              `${BASE_URL}/${articleQuery.data.imageUrl}`,
-              articleQuery.data.imageDesc,
-            )}
+            <RenderArticleImage
+              imageId={articleQuery.data.articleImageId}
+              imageDesc={articleQuery.data.imageDesc}
+            />
           </div>
         </header>
 
@@ -62,12 +63,15 @@ export default function Article() {
               Category:{" "}
               {categoryQuery.isLoading
                 ? "Loading..."
-                : handleCategoryLink(categoryQuery.data.name)}
+                : HandleCategoryLink(categoryQuery.data.name, navigate)}
             </p>
-            <p>Tags: {handleTags(JSON.parse(articleQuery.data.tags))}</p>
+            <p>
+              Tags: {HandleTags(JSON.parse(articleQuery.data.tags), navigate)}
+            </p>
           </div>
         </footer>
       </article>
+      <Titled title={`${articleQuery.data.title} | Ray's Blog`} />
     </main>
   );
 }

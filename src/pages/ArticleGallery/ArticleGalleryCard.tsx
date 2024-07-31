@@ -17,6 +17,10 @@ import { Share } from "lucide-react";
 import useArticleImage from "./useArticleImage";
 import LoadingBar from "@/components/ui/LoadingBar";
 import ArticleGalleryDelete from "./ArticleGalleryDelete";
+import { TokenContext, TokenContextType } from "@/context/TokenContext";
+import { useContext } from "react";
+import slugify from "slugify";
+import { toast } from "@/components/ui/use-toast";
 
 export default function GalleryCard({
   title,
@@ -33,50 +37,79 @@ export default function GalleryCard({
   imageDesc: string;
   date: string;
 }): ReactNode {
+  const { token } = useContext(TokenContext) as TokenContextType;
   const category = useCategory(categoryId);
   const articleImage = useArticleImage(imageId);
   const navigate = useNavigate();
+
+  function handleShareLink() {
+    toast({ title: "Link Copied", description: "Share it with your friends." });
+    return navigator.clipboard.writeText(
+      `${window.location.origin}/article/${articleId}`,
+    );
+  }
 
   if (articleImage.isLoading) {
     return <LoadingBar />;
   }
 
   return (
-    <Card className="ease- grid grid-rows-1 shadow-md transition-all duration-300 ease-in-out hover:scale-[1.02] dark:ring-1">
+    <Card className="grid grid-rows-1 shadow-md transition-all duration-300 ease-in-out hover:scale-[1.02] dark:ring-1">
       <CardHeader>
         <CardTitle className="">{title}</CardTitle>
         <CardDescription className="flex gap-1">
           <p>{handleFormattedDate(date)}</p>
           <Separator orientation="vertical" />
-          <p>{category?.name}</p>
+          <p
+            className="cursor-pointer"
+            onClick={() =>
+              navigate(
+                `/article-gallery/${slugify(category?.name || "all", { lower: true })}/all`,
+              )
+            }
+          >
+            {category?.name}
+          </p>
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        {RenderArticleCardImage(`${articleImage.data?.filePath}`, imageDesc)}
+      <CardContent className="my-auto flex h-full flex-col items-center justify-center">
+        <RenderArticleCardImage
+          imageSrc={articleImage.data?.filePath}
+          imageDesc={imageDesc}
+        />
       </CardContent>
-      <CardFooter className="flex gap-4">
+      <CardFooter className="flex justify-between">
         <Button onClick={() => navigate(`/article/${articleId}`)}>
           Read More
         </Button>
-        <Button variant="secondary">
-          <Share size={16} />
-        </Button>
-        <ArticleGalleryDelete articleId={articleId} />
+        <div className="flex justify-end gap-1">
+          <Button
+            variant="secondary"
+            onClick={handleShareLink}
+            className="flex gap-2"
+          >
+            <Share size={16} /> Share
+          </Button>
+          {token && <ArticleGalleryDelete articleId={articleId} />}
+        </div>
       </CardFooter>
     </Card>
   );
 }
 
-function RenderArticleCardImage(
-  imageSrc: string | ArrayBuffer | undefined | null,
-  imageDesc: string | undefined | null,
-): ReactNode {
+function RenderArticleCardImage({
+  imageSrc,
+  imageDesc,
+}: {
+  imageSrc: string | undefined;
+  imageDesc: string;
+}): ReactNode {
   if (imageSrc) {
     return (
       <img
         src={`${BASE_URL}/${imageSrc}`}
         alt={imageDesc || "Article Image"}
-        className="max-h-[200px] w-full rounded-md object-cover ring-1 md:max-h-[150px] lg:max-h-[175px] xl:max-h-[250px]"
+        className="h-[250px] w-full rounded-md object-cover ring-1"
       />
     );
   } else {

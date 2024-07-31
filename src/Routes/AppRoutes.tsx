@@ -1,11 +1,11 @@
 import { lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import LoadingBar from "@/components/ui/LoadingBar";
+import ProtectedRoute from "./ProtectedRoute";
 
+const NotFound = lazy(() => import("@/pages/NotFound/NotFound"));
 const Home = lazy(() => import("@/pages/Home/Home"));
-const Music = lazy(() => import("@/pages/Music/Music"));
 const About = lazy(() => import("@/pages/About/About"));
-const Contact = lazy(() => import("@/pages/Contact/Contact"));
 const Login = lazy(() => import("@/pages/Login/Login"));
 const Article = lazy(() => import("@/pages/Article/Article"));
 const ArticleCreation = lazy(
@@ -27,27 +27,30 @@ export default function AppRoutes() {
           </Suspense>
         }
       />
-      <Route
-        path="/music"
-        element={
-          <Suspense fallback={<LoadingBar />}>
-            <Music />
-          </Suspense>
-        }
-      />
+      <Route element={<ProtectedRoute />}>
+        <Route
+          path="/article-creation"
+          element={
+            <Suspense fallback={<LoadingBar />}>
+              <ArticleCreation />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/image-gallery"
+          element={
+            <Suspense fallback={<LoadingBar />}>
+              <ImageGallery />
+            </Suspense>
+          }
+        />
+      </Route>
+
       <Route
         path="/about"
         element={
           <Suspense fallback={<LoadingBar />}>
             <About />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/contact"
-        element={
-          <Suspense fallback={<LoadingBar />}>
-            <Contact />
           </Suspense>
         }
       />
@@ -67,16 +70,9 @@ export default function AppRoutes() {
           </Suspense>
         }
       />
+
       <Route
-        path="/article-creation"
-        element={
-          <Suspense fallback={<LoadingBar />}>
-            <ArticleCreation />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/article-gallery"
+        path="/article-gallery/:category/:tag"
         element={
           <Suspense fallback={<LoadingBar />}>
             <ArticleGallery />
@@ -84,10 +80,18 @@ export default function AppRoutes() {
         }
       />
       <Route
-        path="/image-gallery"
+        path="/article-gallery/:category"
+        element={<Navigate to="/article-gallery/all/all" />}
+      />
+      <Route
+        path="/article-gallery"
+        element={<Navigate to="/article-gallery/all/all" />}
+      />
+      <Route
+        path="*"
         element={
           <Suspense fallback={<LoadingBar />}>
-            <ImageGallery />
+            <NotFound />
           </Suspense>
         }
       />

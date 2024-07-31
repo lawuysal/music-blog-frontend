@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { BsGithub } from "react-icons/bs";
+import { Titled } from "react-titled";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -84,6 +85,7 @@ export default function Home() {
           Go to Articles
         </Button>
       </div>
+      <Titled title="Ray's Blog" />
     </div>
   );
 }

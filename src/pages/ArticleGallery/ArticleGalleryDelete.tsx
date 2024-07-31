@@ -13,13 +13,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ENDOPOINTS } from "@/api/endpoints";
 import { toast } from "@/components/ui/use-toast";
 import { Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { TokenContext, TokenContextType } from "@/context/TokenContext";
 
 export default function ArticleGalleryDelete({
   articleId,
 }: {
   articleId: string;
 }) {
+  const { token } = useContext(TokenContext) as TokenContextType;
   const queryClient = useQueryClient();
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -45,6 +47,9 @@ export default function ArticleGalleryDelete({
   function handleArticleDelete(id: string) {
     return fetch(`${ENDOPOINTS.ARTICLES}/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => {
         if (!res.ok) {

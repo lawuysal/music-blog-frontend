@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Markdown from "react-markdown";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -22,12 +22,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { RenderArticleImage } from "../Article/articleUtility";
+import { RenderArticleCreationImage } from "../Article/articleUtility";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ENDOPOINTS } from "@/api/endpoints";
 import LoadingBar from "@/components/ui/LoadingBar";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import { TokenContext, TokenContextType } from "@/context/TokenContext";
+import { Titled } from "react-titled";
 
 type Category = {
   id: string;
@@ -43,11 +45,12 @@ type ArticleDraft = {
 };
 
 export default function ArticleCreation() {
+  const { token } = useContext(TokenContext) as TokenContextType;
+  const navigate = useNavigate();
   const articleDraft: ArticleDraft = JSON.parse(
     localStorage.getItem("articleDraft") || "{}",
   );
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
@@ -80,6 +83,9 @@ export default function ArticleCreation() {
       return fetch(ENDOPOINTS.ARTICLES, {
         method: "POST",
         body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
         .then((res) => {
           if (!res.ok) {
@@ -105,8 +111,10 @@ export default function ArticleCreation() {
         title: "Article Created",
         description: `"${title}" has been created successfully.`,
       });
+      handleArticleClear(false);
       queryClient.invalidateQueries({ queryKey: ["article-gallery"] });
-      navigate("/article-gallery");
+      const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
+      wait().then(() => navigate("/article-gallery"));
     },
   });
 
@@ -121,7 +129,7 @@ export default function ArticleCreation() {
     }
   };
 
-  function handleArticleClear() {
+  function handleArticleClear(showToast: boolean = true) {
     localStorage.removeItem("articleDraft");
     setTitle("");
     setMarkdown("");
@@ -130,6 +138,12 @@ export default function ArticleCreation() {
     setImageDesc("");
     setTags([]);
     setCategoryId("");
+    if (showToast) {
+      toast({
+        title: "Article Draft Cleared",
+        description: "The article draft has been cleared.",
+      });
+    }
   }
 
   function handleArticleDraft() {
@@ -143,17 +157,14 @@ export default function ArticleCreation() {
         categoryId,
       }),
     );
+    toast({
+      title: "Article Draft Saved",
+      description: "The article draft has been saved.",
+    });
   }
 
   function handleCreateArticle() {
     const formData = new FormData();
-    // title
-    // date
-    // content
-    // image
-    // image description
-    // tags
-    // categoryId
 
     formData.append("title", title);
     formData.append("date", dbDate);
@@ -297,7 +308,7 @@ export default function ArticleCreation() {
               </time>
             </div>
             <div className="max-h-[180px] w-full object-cover sm:max-h-[250px] md:max-h-[300px] lg:max-h-[450px]">
-              {RenderArticleImage(imageSrc, imageDesc)}
+              {RenderArticleCreationImage(imageSrc, imageDesc)}
             </div>
           </header>
 
@@ -307,7 +318,7 @@ export default function ArticleCreation() {
         </article>
       </div>
       <div className="flex gap-2 rounded-md p-4 md:gap-4">
-        <Button variant={"outline"} onClick={handleArticleClear}>
+        <Button variant={"outline"} onClick={() => handleArticleClear()}>
           Clear
         </Button>
         <Button variant={"secondary"} onClick={handleArticleDraft}>
@@ -332,6 +343,7 @@ export default function ArticleCreation() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <Titled title="Article Creation | Ray's Blog" />
     </div>
   );
 }

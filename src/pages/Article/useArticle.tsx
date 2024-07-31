@@ -8,7 +8,7 @@ type Category = {
 
 export default function useArticle(articleId: string) {
   const articleQuery = useQuery<Article, Error>({
-    queryKey: ["article"],
+    queryKey: ["article", articleId],
     queryFn: () => {
       return fetch(`https://localhost:7208/api/Articles/${articleId}`)
         .then((res) => res.json())
