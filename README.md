@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 
 <div align="center">
- <a href="https://rays-blog-gold.vercel.app/"><img src="https://raw.githubusercontent.com/lawuysal/images/7109110005c9de960d0af5d51a76448c06b556a9/rays-blog-screenshots/blog_logo.png" alt="Logo" width="240" ></a>
+ <a href="https://rays-blog-gold.vercel.app/" target="_blank"><img src="https://raw.githubusercontent.com/lawuysal/images/7109110005c9de960d0af5d51a76448c06b556a9/rays-blog-screenshots/blog_logo.png" alt="Logo" width="240" ></a>
 
 
 
