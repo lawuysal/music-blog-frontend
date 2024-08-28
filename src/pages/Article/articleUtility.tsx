@@ -23,7 +23,7 @@ export function HandleCategoryLink(
       variant={"link"}
       onClick={() =>
         navigate(
-          `/article-gallery/${slugify(category || "all", { lower: true })}/all`,
+          `/article-gallery?category=${slugify(category || "all", { lower: true })}`,
         )
       }
     >
@@ -44,7 +44,7 @@ export function HandleTags(
         <Button
           key={index}
           variant={"link"}
-          onClick={() => navigate(`/article-gallery/all/${tag}`)}
+          onClick={() => navigate(`/article-gallery?tag=${tag}`)}
         >
           #{tag}
         </Button>

@@ -74,9 +74,7 @@ export default function NavBarDropdownMenu() {
             <DropdownMenuItem onClick={() => navigate("/")}>
               Home
             </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => navigate("/article-gallery/all/all")}
-            >
+            <DropdownMenuItem onClick={() => navigate("/article-gallery")}>
               Articles
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => navigate("/image-gallery")}>

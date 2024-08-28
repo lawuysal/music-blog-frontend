@@ -61,7 +61,7 @@ export default function Login() {
       localStorage.setItem("token", data.jwtToken);
       setToken(data.jwtToken);
       const wait = () => new Promise((resolve) => setTimeout(resolve, 3000));
-      wait().then(() => navigate("/article-gallery/all/all"));
+      wait().then(() => navigate("/article-gallery"));
     },
   });
 

@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import useCategory from "./useCategory";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { handleFormattedDate } from "../Article/articleUtility";
 import { BASE_URL } from "@/api/endpoints";
 import { Share } from "lucide-react";
@@ -41,6 +41,8 @@ export default function GalleryCard({
   const category = useCategory(categoryId);
   const articleImage = useArticleImage(imageId);
   const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [searchParams, setSearchParams] = useSearchParams();
 
   function handleShareLink() {
     toast({ title: "Link Copied", description: "Share it with your friends." });
@@ -63,9 +65,9 @@ export default function GalleryCard({
           <p
             className="cursor-pointer"
             onClick={() =>
-              navigate(
-                `/article-gallery/${slugify(category?.name || "all", { lower: true })}/all`,
-              )
+              setSearchParams({
+                category: slugify(category?.name || "all", { lower: true }),
+              })
             }
           >
             {category?.name}

@@ -50,7 +50,7 @@ export default function NavBarNormalMenu() {
           Home
         </Link>
         <Link
-          to={"/article-gallery/all/all"}
+          to={"/article-gallery"}
           className="flex items-center gap-2 text-lg md:text-base"
         >
           Articles

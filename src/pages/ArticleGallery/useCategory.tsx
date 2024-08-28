@@ -1,3 +1,4 @@
+import { ENDOPOINTS } from "@/api/endpoints";
 import { useQuery } from "@tanstack/react-query";
 
 type Category = {
@@ -10,7 +11,7 @@ export default function useCategory(categoryId: string) {
     enabled: categoryId !== undefined,
     queryKey: ["category", categoryId],
     queryFn: () => {
-      return fetch(`https://localhost:7208/api/Categories/${categoryId}`)
+      return fetch(`${ENDOPOINTS.CATEGORIES}/${categoryId}`)
         .then((res) => res.json())
         .then((data) => data);
     },

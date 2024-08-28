@@ -74,6 +74,12 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
+            a: {
+              color: theme("colors.primary.DEFAULT"),
+            },
+            strong: {
+              color: theme("colors.primary.DEFAULT"),
+            },
             code: {
               color: theme("colors.primary.DEFAULT"),
               backgroundColor: theme("colors.muted.DEFAULT"),

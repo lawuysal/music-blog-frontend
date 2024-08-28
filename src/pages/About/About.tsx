@@ -21,7 +21,7 @@ export default function About() {
       <div className="absolute left-[45%] -z-30 h-[30rem] w-28 -rotate-[30deg] rounded-full bg-destructive opacity-50 blur-[72px] filter dark:opacity-45 lg:left-[70%]"></div>
 
       <div className="absolute left-[35%] top-20 -z-30 h-[20rem] w-28 rotate-[45deg] rounded-full bg-purple-600 opacity-50 blur-[72px] filter dark:opacity-45 lg:left-[50%]"></div>
-      <Card className="flex w-10/12 max-w-screen-lg flex-col items-center justify-center shadow-black/10 drop-shadow-xl dark:shadow-white/10 md:w-[75%]">
+      <Card className="mt-28 flex w-10/12 max-w-screen-lg flex-col items-center justify-center shadow-black/10 drop-shadow-xl dark:shadow-white/10 sm:mt-0 md:w-[75%]">
         <CardHeader className="mt-8 flex items-center justify-center pb-4">
           <Avatar className="absolute -top-12 aspect-square h-24 w-24 rounded-full object-cover grayscale-[0%]">
             <AvatarImage src="author-image.webp" alt="image-of-the-author" />

@@ -6,11 +6,9 @@ const ProtectedRoute = () => {
   const { token } = useContext(TokenContext) as TokenContextType;
 
   if (!token) {
-    // Redirect to login if not authenticated
     return <Navigate to="/login" replace />;
   }
 
-  // Render child components (the protected routes)
   return <Outlet />;
 };
 

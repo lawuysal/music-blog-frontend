@@ -72,7 +72,7 @@ export default function AppRoutes() {
       />
 
       <Route
-        path="/article-gallery/:category/:tag"
+        path="/article-gallery"
         element={
           <Suspense fallback={<LoadingBar />}>
             <ArticleGallery />
@@ -80,12 +80,12 @@ export default function AppRoutes() {
         }
       />
       <Route
-        path="/article-gallery/:category"
-        element={<Navigate to="/article-gallery/all/all" />}
+        path="/article-gallery"
+        element={<Navigate to="/article-gallery/" />}
       />
       <Route
         path="/article-gallery"
-        element={<Navigate to="/article-gallery/all/all" />}
+        element={<Navigate to="/article-gallery/" />}
       />
       <Route
         path="*"

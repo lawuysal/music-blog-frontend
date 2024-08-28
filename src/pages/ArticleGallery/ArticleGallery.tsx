@@ -6,11 +6,12 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useContext } from "react";
 import { Button } from "@/components/ui/button";
 import { PencilLine } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { TokenContext, TokenContextType } from "@/context/TokenContext";
 import { ENDOPOINTS } from "@/api/endpoints";
 import slugify from "slugify";
 import { Titled } from "react-titled";
+import { useScrollToTop } from "@/lib/utility.ts";
 
 type Category = {
   id: string;
@@ -25,7 +26,8 @@ const categories: { [key: string]: string } = {
 };
 
 export default function ArticleGallery() {
-  const { category, tag } = useParams();
+  useScrollToTop();
+  const [searchParams] = useSearchParams();
   const { token } = useContext(TokenContext) as TokenContextType;
   const navigate = useNavigate();
   const [tab, setTab] = useState("newest");
@@ -43,31 +45,31 @@ export default function ArticleGallery() {
   const articleGalleryQuery = useQuery<Article[], Error>({
     enabled: categoryIdQuery.isSuccess,
     queryKey: ["article-gallery"],
-    queryFn: () =>
-      fetch("https://localhost:7208/api/Articles/").then((res) => res.json()),
+    queryFn: () => fetch(`${ENDOPOINTS.ARTICLES}`).then((res) => res.json()),
     select: (data) => {
       const sortedData = [...data];
       if (tab === "oldest") {
         sortedData.reverse();
       }
-      if (category === "all" && tag === "all") {
+      if (!searchParams.get("category") && !searchParams.get("tag")) {
         return sortedData;
       }
       if (
         categoryIdQuery.data
           ?.map((cat) => slugify(cat.name, { lower: true }))
-          .includes(category as string)
+          .includes(searchParams.get("category") as string)
       ) {
         const foundCategory = categoryIdQuery.data?.find(
-          (cat) => slugify(cat.name, { lower: true }) === category,
+          (cat) =>
+            slugify(cat.name, { lower: true }) === searchParams.get("category"),
         );
         return sortedData.filter(
           (article) => article.categoryId === foundCategory?.id,
         );
       }
-      if (tag) {
+      if (searchParams.get("tag")) {
         return sortedData.filter((article) =>
-          JSON.parse(article.tags).includes(tag),
+          JSON.parse(article.tags).includes(searchParams.get("tag")),
         );
       }
 
@@ -75,8 +77,8 @@ export default function ArticleGallery() {
     },
   });
 
-  if (articleGalleryQuery.isLoading) {
-    return <LoadingBar />;
+  if (articleGalleryQuery.isLoading || categoryIdQuery.isLoading) {
+    return <LoadingBar text="Loading" />;
   }
   if (articleGalleryQuery.isError) {
     return <div>Error: {articleGalleryQuery.error.message}</div>;
@@ -88,12 +90,12 @@ export default function ArticleGallery() {
         <div className="text-center md:flex md:flex-col md:text-left">
           <h1 className="text-4xl font-semibold">Articles</h1>
           <p className="text-muted-foreground">
-            {category === "all" && tag === "all"
+            {!searchParams.get("category") && !searchParams.get("tag")
               ? "All articles"
-              : category !== "all"
-                ? `Category: ${categories[category as string]}`
-                : tag
-                  ? `Tag: ${tag}`
+              : searchParams.get("category")
+                ? `Category: ${categories[searchParams.get("category") as string]}`
+                : searchParams.get("tag")
+                  ? `Tag: ${searchParams.get("tag")}`
                   : "All articles"}
           </p>
         </div>

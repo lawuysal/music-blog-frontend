@@ -40,7 +40,7 @@ export default function ImageCard({
 
   return (
     <div className="">
-      <Card className="h-fit w-[19rem]">
+      <Card className="flex h-[25rem] w-[19rem] flex-col justify-between">
         <CardContent className="p-0 pb-4">
           <img
             className="h-48 w-[19rem] rounded-tl-lg rounded-tr-lg bg-muted object-contain ring-1"

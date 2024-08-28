@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Article from "@/types/ArticleInterface";
+import { ENDOPOINTS } from "@/api/endpoints";
 
 type Category = {
   id: string;
@@ -10,7 +11,7 @@ export default function useArticle(articleId: string) {
   const articleQuery = useQuery<Article, Error>({
     queryKey: ["article", articleId],
     queryFn: () => {
-      return fetch(`https://localhost:7208/api/Articles/${articleId}`)
+      return fetch(`${ENDOPOINTS.ARTICLES}/${articleId}`)
         .then((res) => res.json())
         .then((data) => data);
     },
@@ -20,9 +21,7 @@ export default function useArticle(articleId: string) {
     enabled: !!articleQuery.data?.categoryId,
     queryKey: ["category"],
     queryFn: () => {
-      return fetch(
-        `https://localhost:7208/api/Categories/${articleQuery.data?.categoryId}`,
-      )
+      return fetch(`${ENDOPOINTS.CATEGORIES}/${articleQuery.data?.categoryId}`)
         .then((res) => res.json())
         .then((data) => data);
     },
