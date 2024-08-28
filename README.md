@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 
 <div align="center">
- <img src="https://raw.githubusercontent.com/lawuysal/images/7109110005c9de960d0af5d51a76448c06b556a9/rays-blog-screenshots/blog_logo.png" alt="Logo" width="240" >
+ <a href="https://rays-blog-gold.vercel.app/"><img src="https://raw.githubusercontent.com/lawuysal/images/7109110005c9de960d0af5d51a76448c06b556a9/rays-blog-screenshots/blog_logo.png" alt="Logo" width="240" ></a>
 
 
 
@@ -19,7 +19,7 @@
       </ul>
     </li>
     <li>
-      <a href="#features">Features</a>
+      <a href="#screenshots">Screenshots</a>
       
   </ol>
 </details>
@@ -30,7 +30,13 @@
   <img src="https://raw.githubusercontent.com/lawuysal/images/7109110005c9de960d0af5d51a76448c06b556a9/rays-blog-screenshots/main_page.png" alt="Home page of the blog" />   
 
 <p>I created this website within my internship just to write down my thoughts about music and other concepts.</p>
-<p>Eventually I improved myself both on frontend and backend.</p>
+<p>Eventually I improved myself both on frontend and backend.</p>    
+
+<p>I used a <a href="https://github.com/lawuysal/music-blog-server">ASP.NET backend</a> with MSSQL. Since I learning the ASP.NET, this project played a great role to improve my common skills like database migrations, DI, identity and authentication. </p>
+
+<p>With this project, I also improved my react skills like routing, querying and mutating remote data, styling and user experience. Also <a href="https://ui.shadcn.com/">Shadcn</a> really helped me to achive faster development both on components and dark mode :). </p>
+
+<p>I created a fully responsive design with the help of <a href="https://tailwindcss.com/">Tailwind</a>. Yes, it's possible with vanilla CSS but it makes managing the files and class names a hard thing.</p>
 
 ### Built With
 
@@ -46,7 +52,15 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-## Features
+## Screenshots
+
+### Main Page with Light Mode
+![Main Page with Light Mode](https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/main_page_light.png)
+---
+
+### Article Gallery with querying and sorting features    
+![Article Gallery with querying and sorting features](https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/article_gallery.png)
+---
 
 
 
