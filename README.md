@@ -27,9 +27,9 @@
 ## About The Project
 
 
-  <a href="https://rays-blog-gold.vercel.app/" target="_blank" ><img src="https://raw.githubusercontent.com/lawuysal/images/7109110005c9de960d0af5d51a76448c06b556a9/rays-blog-screenshots/main_page.png" alt="Home page of the blog" />  </a> 
+  <img src="https://raw.githubusercontent.com/lawuysal/images/7109110005c9de960d0af5d51a76448c06b556a9/rays-blog-screenshots/main_page.png" alt="Home page of the blog" /> 
 
-### [Go to Ray's Blog](https://rays-blog-gold.vercel.app/)
+[Deployed on Vercel, Go to Ray's Blog](https://rays-blog-gold.vercel.app/)
 
 <p>I created this website within my internship just to write down my thoughts about music and other concepts.</p>
 <p>Eventually I improved myself both on frontend and backend.</p>    
@@ -62,6 +62,45 @@
 
 ### Article Gallery with querying and sorting features    
 ![Article Gallery with querying and sorting features](https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/article_gallery.png)
+---
+
+### Article Page 1
+![Article Page 1](https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/article_page.png)
+---
+
+### Article Page 2 with markdown
+![Article Page 1](https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/article_page_2.png)
+---
+
+### Fully working category and tag querying
+![Fully working category and tag querying](https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/article_footer.png)
+---
+
+
+### Article Creation page
+![Article Creation page](https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/article_creation.png)
+---
+
+
+### Article Creation page with DIY markdown editor and preview
+![Article Creation page with DIY markdown editor and preview](https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/article_creation_2.png)
+---
+
+### Article Creation page with local draft and clean functions
+![Article Creation page with local draft and clean functions](https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/article_creation_3.png)
+---
+
+### Image Gallery to upload and use images in the articles
+![Image Gallery to upload and use images in the articles](https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/image_gallery.png)
+---
+
+### Responsive design examples
+<div>
+ <img src="https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/main_page_responsive.jpg" width="300"/>
+ <img src="https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/menu_mobile.jpg" width="300"/>
+ <img src="https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/article_gallery_responsive.jpg" width="300"/>
+ <img src="https://raw.githubusercontent.com/lawuysal/images/main/rays-blog-screenshots/article_page_responsive.jpg" width="300"/>
+</div>
 ---
 
 
