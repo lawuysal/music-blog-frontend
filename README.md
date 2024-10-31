@@ -9,6 +9,7 @@
 <p>Build from a minimal blog idea.</p> 
 </div>
 
+[Server Codes Page](https://github.com/lawuysal/music-blog-server)
 <details>
   <summary>Table of Contents</summary>
   <ol>
