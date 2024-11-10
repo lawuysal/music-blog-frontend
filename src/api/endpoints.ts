@@ -1,4 +1,5 @@
-const BASE_URL = "https://localhost:7208";
+const BASE_URL =
+  "https://musicblog-plcenter-dev-hzf8fcfcgnhje5b6.polandcentral-01.azurewebsites.net";
 
 const ENDOPOINTS = {
   GALLERY_IMAGES: `${BASE_URL}/api/galleryimages`,

@@ -10,7 +10,7 @@ export default function LoadingBar({ text }: { text?: string }) {
       setExplanation(
         <>
           <p>This can take a little longer because of the database startup.</p>
-          <p>Try refreshing after 1 minutes.</p>
+          <p>Try refreshing after 1 minute(s).</p>
         </>,
       );
     });

@@ -17,6 +17,7 @@ import { ENDOPOINTS } from "@/api/endpoints";
 import { toast } from "@/components/ui/use-toast";
 import { TokenContext, TokenContextType } from "@/context/TokenContext";
 import { Titled } from "react-titled";
+import { Helmet } from "react-helmet-async";
 
 export default function Login() {
   const { setToken } = useContext(TokenContext) as TokenContextType;
@@ -111,6 +112,10 @@ export default function Login() {
         </CardFooter>
       </Card>
       <Titled title="Login | Ray's Blog" />
+      <Helmet>
+        <meta name="description" content="Login to your account." />
+        <link rel="canonical" href="https://rays-blog-gold.vercel.app/login" />
+      </Helmet>
     </div>
   );
 }

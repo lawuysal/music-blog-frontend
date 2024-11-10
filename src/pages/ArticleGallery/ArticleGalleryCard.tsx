@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import useCategory from "./useCategory";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams, NavLink } from "react-router-dom";
 import { handleFormattedDate } from "../Article/articleUtility";
 import { BASE_URL } from "@/api/endpoints";
 import { Share } from "lucide-react";
@@ -40,9 +40,7 @@ export default function GalleryCard({
   const { token } = useContext(TokenContext) as TokenContextType;
   const category = useCategory(categoryId);
   const articleImage = useArticleImage(imageId);
-  const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   function handleShareLink() {
     toast({ title: "Link Copied", description: "Share it with your friends." });
@@ -58,7 +56,9 @@ export default function GalleryCard({
   return (
     <Card className="grid grid-rows-1 shadow-md transition-all duration-300 ease-in-out hover:scale-[1.02] dark:ring-1">
       <CardHeader>
-        <CardTitle className="">{title}</CardTitle>
+        <NavLink to={`/article/${articleId}`}>
+          <CardTitle className="">{title}</CardTitle>
+        </NavLink>
         <CardDescription className="flex gap-1">
           <p>{handleFormattedDate(date)}</p>
           <Separator orientation="vertical" />
@@ -81,9 +81,9 @@ export default function GalleryCard({
         />
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button onClick={() => navigate(`/article/${articleId}`)}>
-          Read More
-        </Button>
+        <NavLink to={`/article/${articleId}`}>
+          <Button>Read More</Button>
+        </NavLink>
         <div className="flex justify-end gap-1">
           <Button
             variant="secondary"

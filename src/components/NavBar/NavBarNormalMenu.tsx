@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Plus } from "lucide-react";
@@ -46,27 +46,30 @@ export default function NavBarNormalMenu() {
   return (
     <>
       <div className="hidden gap-6 md:flex">
-        <Link to={"/"} className="flex items-center gap-2 text-lg md:text-base">
+        <NavLink
+          to={"/"}
+          className="flex items-center gap-2 text-lg md:text-base"
+        >
           Home
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to={"/article-gallery"}
           className="flex items-center gap-2 text-lg md:text-base"
         >
           Articles
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to={"/image-gallery"}
           className="flex items-center gap-2 text-lg md:text-base"
         >
           Gallery
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to={"/about"}
           className="flex items-center gap-2 text-lg md:text-base"
         >
           About
-        </Link>
+        </NavLink>
       </div>
       <div className="hidden gap-2 justify-self-end md:flex">
         {token && (

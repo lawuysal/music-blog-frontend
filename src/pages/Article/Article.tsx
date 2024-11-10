@@ -12,6 +12,7 @@ import { useScrollToTop } from "@/lib/utility.ts";
 import useArticle from "./useArticle.tsx";
 import LoadingBar from "@/components/ui/LoadingBar.tsx";
 import { Titled } from "react-titled";
+import { Helmet } from "react-helmet-async";
 
 export default function Article() {
   useScrollToTop();
@@ -72,6 +73,29 @@ export default function Article() {
         </footer>
       </article>
       <Titled title={`${articleQuery.data.title} | Ray's Blog`} />
+      <Helmet>
+        <meta
+          name="description"
+          content={JSON.parse(articleQuery.data.content || '""')
+            .replace(/[#*_`~-]+/g, "")
+            .replace(/\[(.*?)\]\(.*?\)/g, "$1")
+            .replace(/!\[.*?\]\(.*?\)/g, "")
+            .replace(/\n+/g, " ")
+            .replace(/\s\s+/g, " ")
+            .split(" ")
+            .filter(Boolean)
+            .slice(0, 100)
+            .join(" ")}
+        />
+        <meta
+          name="keywords"
+          content={JSON.parse(articleQuery.data.tags).join(", ")}
+        />
+        <link
+          rel="canonical"
+          href={`https://rays-blog-gold.vercel.app/article/${articleId}`}
+        />
+      </Helmet>
     </main>
   );
 }

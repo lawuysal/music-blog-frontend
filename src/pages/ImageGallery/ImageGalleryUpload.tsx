@@ -24,6 +24,7 @@ export default function ImageGalleryUpload() {
   const [image, setImage] = useState<File | undefined>(undefined);
   const [imageName, setImageName] = useState<string>("");
   const [dialogOpen, setDialogOpen] = useState(false);
+
   const uploadImageMutation = useMutation({
     mutationFn: handleUpload,
     onError: (error) => {

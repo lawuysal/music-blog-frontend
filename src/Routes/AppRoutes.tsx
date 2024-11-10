@@ -87,6 +87,7 @@ export default function AppRoutes() {
         path="/article-gallery"
         element={<Navigate to="/article-gallery/" />}
       />
+
       <Route
         path="*"
         element={

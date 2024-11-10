@@ -16,7 +16,7 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { toast } from "../ui/use-toast";
@@ -49,9 +49,9 @@ export default function NavBarDropdownMenu() {
       );
     }
     return (
-      <DropdownMenuItem onClick={() => navigate("/Login")}>
-        Login
-      </DropdownMenuItem>
+      <NavLink to={"/Login"}>
+        <DropdownMenuItem>Login</DropdownMenuItem>
+      </NavLink>
     );
   }
 
@@ -71,25 +71,25 @@ export default function NavBarDropdownMenu() {
           <DropdownMenuContent>
             <DropdownMenuLabel>Pages</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => navigate("/")}>
-              Home
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => navigate("/article-gallery")}>
-              Articles
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => navigate("/image-gallery")}>
-              Gallery
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => navigate("/about")}>
-              About
-            </DropdownMenuItem>
+            <NavLink to={"/"}>
+              <DropdownMenuItem>Home</DropdownMenuItem>
+            </NavLink>
+            <NavLink to={"/article-gallery"}>
+              <DropdownMenuItem>Articles</DropdownMenuItem>
+            </NavLink>
+            <NavLink to={"/image-gallery"}>
+              <DropdownMenuItem>Gallery</DropdownMenuItem>
+            </NavLink>
+            <NavLink to={"/about"}>
+              <DropdownMenuItem>About</DropdownMenuItem>
+            </NavLink>
             <DropdownMenuItem className="invisible"></DropdownMenuItem>
             <DropdownMenuLabel>Manage</DropdownMenuLabel>
             <DropdownMenuSeparator />
             {token && (
-              <DropdownMenuItem onClick={() => navigate("/article-creation")}>
-                Article Creation
-              </DropdownMenuItem>
+              <NavLink to={"/article-creation"}>
+                <DropdownMenuItem>Article Creation</DropdownMenuItem>
+              </NavLink>
             )}
             <LoginButton />
             <DropdownMenuItem className="invisible"></DropdownMenuItem>

@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { BsGithub } from "react-icons/bs";
 import { Titled } from "react-titled";
+import { Helmet } from "react-helmet-async";
 
 export default function Home() {
-  const navigate = useNavigate();
-
   return (
     <div className="relative mb-48 mt-8 flex max-w-6xl flex-col items-center justify-center gap-12 transition-all duration-300 ease-in-out sm:mt-10 md:mx-auto md:mt-0 lg:mt-20">
       <div className="">
@@ -81,11 +80,22 @@ export default function Home() {
             <BsGithub className="size-5" /> Project Repository
           </Button>
         </a>
-        <Button onClick={() => navigate("/article-gallery")}>
-          Go to Articles
-        </Button>
+        <NavLink to={"/article-gallery"}>
+          <Button>Go to Articles</Button>
+        </NavLink>
       </div>
       <Titled title="Ray's Blog" />
+      <Helmet>
+        <meta
+          name="description"
+          content="Ray Maschine's music blog. Music news, song reviews, tutorials and unique topics."
+        />
+        <meta
+          name="keywords"
+          content="music, blog, music-blog, news, reviews, music-reviews, tutorials, mixing, mastering, production, audio, sound"
+        />
+        <link rel="canonical" href="https://rays-blog-gold.vercel.app" />
+      </Helmet>
     </div>
   );
 }

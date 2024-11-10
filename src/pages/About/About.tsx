@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Globe } from "lucide-react";
 import { BsInstagram, BsSpotify } from "react-icons/bs";
 import { Titled } from "react-titled";
+import { Helmet } from "react-helmet-async";
 
 export default function About() {
   return (
@@ -25,7 +26,7 @@ export default function About() {
         <CardHeader className="mt-8 flex items-center justify-center pb-4">
           <Avatar className="absolute -top-12 aspect-square h-24 w-24 rounded-full object-cover grayscale-[0%]">
             <AvatarImage src="author-image.webp" alt="image-of-the-author" />
-            <AvatarFallback className="bg-primary">OU</AvatarFallback>
+            <AvatarFallback className="bg-primary">RM</AvatarFallback>
           </Avatar>
           <CardTitle className="text-center">Ray Maschine</CardTitle>
           <CardDescription className="font-normal text-primary">
@@ -130,6 +131,17 @@ export default function About() {
         </CardFooter>
       </Card>
       <Titled title="About | Ray's Blog" />
+      <Helmet>
+        <meta
+          name="description"
+          content="Ray Maschine is a multi-genre producer - synthwave, chillwave, synth-pop, techno, house - and mixing engineer. He released the Latewave EP in 2021 under the name of Ray Maschine for the first time."
+        />
+        <meta
+          name="keywords"
+          content="music, blog, music-blog, news, reviews, music-reviews, tutorials, mixing, mastering, production, audio, sound, ray maschine, music producer, mixing engineer, synthwave, chillwave, synth-pop, techno, house"
+        />
+        <link rel="canonical" href="https://rays-blog-gold.vercel.app/about" />
+      </Helmet>
     </div>
   );
 }

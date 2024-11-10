@@ -50,7 +50,7 @@ export default function ImageGallery() {
   }
 
   return (
-    <div className="mx-auto mt-10 flex max-w-screen-xl flex-col items-center justify-center gap-8 lg:mt-20">
+    <div className="mx-auto mb-10 mt-10 flex max-w-screen-xl flex-col items-center justify-center gap-8 lg:mt-20">
       <div className="flex w-10/12 flex-col items-center justify-between gap-8 md:flex-row md:gap-4 xl:w-full">
         <div className="text-center md:flex md:flex-col md:text-left">
           <h1 className="text-4xl font-semibold">Gallery</h1>

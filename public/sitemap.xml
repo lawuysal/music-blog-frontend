@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://rays-blog-gold.vercel.app/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://rays-blog-gold.vercel.app/about</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rays-blog-gold.vercel.app/login</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://rays-blog-gold.vercel.app/article-gallery</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://rays-blog-gold.vercel.app/image-gallery</loc>
+    <priority>0.6</priority>
+  </url>
+  <!-- Add dynamically generated articles here, example: -->
+  <url>
+    <loc>https://rays-blog-gold.vercel.app/article/7e988b01-8b08-41cc-8b66-08dcb0ff2984</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rays-blog-gold.vercel.app/article/408b1b86-321e-4db9-e33f-08dcb1549322</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rays-blog-gold.vercel.app/article/60a7631b-675c-4d2c-5c65-08dce3e73a7b</loc>
+    <priority>0.7</priority>
+  </url>
+</urlset>

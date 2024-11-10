@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /article-creation
+Disallow: /image-gallery
+Allow: /
+
+Sitemap: https://rays-blog-gold.vercel.app/sitemap.xml
