@@ -1,4 +1,4 @@
-import AppRoutes from "./Routes/AppRoutes";
+import AppRoutes from "./routes/AppRoutes";
 import { ThemeProvider } from "@/components/theme-provider";
 import NavBar from "@/components/NavBar/NavBar";
 
